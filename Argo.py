@@ -36,12 +36,12 @@ class Argo():
 
 
     def odpri(self):
-        ime = filedialog.askopenfilename()
-        if ime == '':
+        self.ime = filedialog.askopenfilename()
+        if self.ime == '':
             return
         else:
             niz1 = ''
-            with open(ime) as f:
+            with open(self.ime) as f:
                 for vrstica in f:
                     niz1 += vrstica.strip() + ' '
         self.niz = niz1
@@ -52,21 +52,21 @@ class Argo():
             self.niz = self.vnos.get()
         self.papagajscina(self.niz)
         self.niz = ''
-        self.stanje = IZ_DAT
+        self.stanje = IZ_VNOSA
 
     def lat(self):
         if self.stanje == IZ_VNOSA:
             self.niz = self.vnos.get()
         self.latovscina(self.niz)
         self.niz = ''
-        self.stanje = IZ_DAT
-
+        self.stanje = IZ_VNOSA
+        
     def nazaj(self):
         if self.stanje == IZ_VNOSA:
             self.niz = self.vnos.get()
         self.nazajscina(self.niz)
         self.niz = ''
-        self.stanje = IZ_DAT
+        self.stanje = IZ_VNOSA
 
     def papagajscina(self, niz):
         retval = ''
@@ -75,10 +75,15 @@ class Argo():
                 retval += '{0}{1}{2}'.format(niz[i], 'p', niz[i].lower())
             else:
                 retval += niz[i]
-        self.izhod.set(retval)
-        with open('papagajščina.txt', 'at') as f:
-            print(niz, '  ->  ', retval, '\n', file = f)
-
+        if self.stanje == IZ_DAT:
+            with open('{0}_papagajscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+                print(retval, '\n', file = f)
+            self.izhod.set('Shranjeno!')
+        else:
+            with open('papagajscina.txt', 'at') as g:
+                print(niz, '->', retval, file = g)
+            self.izhod.set(retval)
+                
     def latovscina(self, niz):
         retval = ''
         for i in range(len(niz)):
@@ -86,17 +91,27 @@ class Argo():
                 retval += '{0}la'.format(niz[i])
             else:
                 retval += niz[i]
-        self.izhod.set(retval)
-        with open('latovscina.txt', 'at') as f:
-            print(niz, '  ->  ', retval, '\n', file = f)
-
+        if self.stanje == IZ_DAT:
+            with open('{0}_latovscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+                print(retval, '\n', file = f)
+            self.izhod.set('Shranjeno!')
+        else:
+            with open('latovscina.txt', 'at') as g:
+                print(niz, '->', retval, file = g)
+            self.izhod.set(retval)
+                
     def nazajscina(self, niz):
         retval = ''
         for i in range(len(niz)-1, -1, -1):
             retval += niz[i]
-        self.izhod.set(retval)
-        with open('nazajscina.txt', 'at') as f:
-            print(niz, '  ->  ', retval, '\n', file = f)
+        if self.stanje == IZ_DAT:
+            with open('{0}_nazajscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+                print(retval, '\n', file = f)
+            self.izhod.set('Shranjeno!')
+        else:
+            with open('nazajscina.txt', 'at') as g:
+                print(niz, '->', retval, file = g)
+            self.izhod.set(retval)
         
 
 root = Tk() 
