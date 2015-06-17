@@ -5,7 +5,6 @@ IZ_VNOSA = 1
 SAMOGLASNIKI = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
 locila = '.,:;-?!"' + "'"
 LOCILA = ['.', ',', ':', ';', '-', '?', '!', '"', "'"]
-KONČNI = ['.', '!', '?']
 
 class Argo():
 
@@ -14,6 +13,7 @@ class Argo():
         self.niz = ''
         Label(master, text = 'Vnesi besedilo:').grid(row = 0, column = 0)
         Label(master, text = 'Prevedi v:').grid(row = 2, column = 0)
+        
         self.vnos = StringVar(master)
         vneseni = Entry(master, textvariable=self.vnos)
         vneseni['width'] = 35
@@ -132,7 +132,7 @@ class Argo():
             zacloc = ''
             if len(niz1) > 0:
                 zadnjiznak = niz1[-1]
-                if niz1 == seznam[0] or zadnjiznak in KONČNI or niz1[0] in ['"', "'"]:
+                if niz1 == seznam[0] or zadnjiznak in ['.', '!', '?'] or niz1[0] in ['"', "'"]:
                     jeprvi = True
             if not niz1.isalpha():
                 niz2 = niz1.lstrip(locila)
