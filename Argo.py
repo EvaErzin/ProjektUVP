@@ -43,7 +43,7 @@ class Argo():
             return
         else:
             niz1 = ''
-            with open(self.ime) as f:
+            with open(self.ime, encoding='utf8') as f:
                 for vrstica in f:
                     niz1 += vrstica.strip() + ' '
         self.niz = niz1
@@ -79,11 +79,11 @@ class Argo():
             else:
                 retval += niz[i]
         if self.stanje == IZ_DAT:
-            with open('{0}_papagajscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+            with open('{0}_papagajscina.txt'.format(self.ime.split('.')[0]), 'wt', encoding='utf8') as f:
                 print(retval, '\n', file = f)
             self.izhod.set('Shranjeno!')
         else:
-            with open('papagajscina.txt', 'at') as g:
+            with open('papagajscina.txt', 'at', encoding="utf8") as g:
                 print(niz, '->', retval, file = g)
             self.izhod.set(retval)
                 
@@ -114,11 +114,11 @@ class Argo():
             retval += ' '
                     
         if self.stanje == IZ_DAT:
-            with open('{0}_latovscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+            with open('{0}_latovscina.txt'.format(self.ime.split('.')[0]), 'wt', encoding='utf8') as f:
                 print(retval, '\n', file = f)
             self.izhod.set('Shranjeno!')
         else:
-            with open('latovscina.txt', 'at') as g:
+            with open('latovscina.txt', 'at', encoding='utf8') as g:
                 print(niz, '->', retval, file = g)
             self.izhod.set(retval)
                 
@@ -165,11 +165,11 @@ class Argo():
                 retval += zacloc[-i]
             retval += ' '
         if self.stanje == IZ_DAT:
-            with open('{0}_nazajscina.txt'.format(self.ime.split('.')[0]), 'wt') as f:
+            with open('{0}_nazajscina.txt'.format(self.ime.split('.')[0]), 'wt', encoding='utf8') as f:
                 print(retval, '\n', file = f)
             self.izhod.set('Shranjeno!')
         else:
-            with open('nazajscina.txt', 'at') as g:
+            with open('nazajscina.txt', 'at', encoding='utf8') as g:
                 print(niz, '->', retval, file = g)
             self.izhod.set(retval)
         
